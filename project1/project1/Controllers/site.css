@@ -1,2 +1,19 @@
-﻿body {
+﻿h1{
+    color: #0475F1;
+    font-family: 'Comic Sans MS';
+}
+
+#mainHeader{
+    color: gold;
+    font-family: 'Courier New';
+}
+
+.fancyHeader{
+    color: silver;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border: solid;
+}
+
+h1.fancyHeader{
+    border: dashed;
 }

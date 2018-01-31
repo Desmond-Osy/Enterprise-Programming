@@ -34,6 +34,9 @@ namespace project1
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            
             app.UseMvc();
         }
     }
