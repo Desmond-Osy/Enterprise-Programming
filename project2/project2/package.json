@@ -1,0 +1,26 @@
+{
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "file-loader": "^1.1.6",
+    "font-awesome": "^4.7.0",
+    "style-loader": "^0.20.2",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.11.0",
+    "css-loader": "0.28.9"
+  },
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "jquery": "3.3.1",
+    "popper.js": "1.12.9",
+    "font-awesome": "^4.7.0"
+  },
+  "name": "project2",
+  "version": "1.0.0",
+  "main": "webpack.config.js",
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
