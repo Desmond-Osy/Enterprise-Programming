@@ -1,0 +1,111 @@
+<h1>{{upcomingElection.election.name}}</h1>
+<h2>{{upcomingElection.election.electionDay}}</h2>
+<br/>
+<br/>
+<h3>Polling Locations</h3>
+<table class="table table-light">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Polling address</th>
+            <th scope="col">Operating hours</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor ="let location of upcomingElection.pollingLocations">
+            <td>
+                <a href="https://maps.google.com/?q={{googleMap(location)}}">
+                {{ location.address.city }}<br />
+                {{ location.address.line1 }}<br />
+                {{ location.address.locationName }}<br />
+                {{ location.address.state }}<br />
+                {{ location.address.zip }}<br />
+                </a>
+            </td>
+            <td>{{ location.pollingHours}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<br/>
+<h3>Early Polling Locations</h3>
+<table class="table table-light">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Polling address</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Operating hours</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let location of upcomingElection.earlyVoteSites">
+            <td>
+                <a href="https://maps.google.com/?q={{googleMap(location)}}">
+                    {{ location.address.city }}<br />
+                    {{ location.address.line1 }}<br />
+                    {{ location.address.locationName }}<br />
+                    {{ location.address.state }}<br />
+                    {{ location.address.zip }}<br />
+                </a>
+            </td>
+            <td>{{ location.startDate}}</td>
+            <td>{{ location.endDate}}</td>
+            <td>{{ location.pollingHours}}</td>
+        </tr>
+    </tbody>
+</table>
+<br/>
+<h3>Contests</h3>
+
+<div *ngFor="let contest of upcomingElection.contests">
+    <h4>{{contest.office}}</h4>
+    <table class="table table-light">
+
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">photos</th>
+                <th scope="col">information</th>
+                <th scope="col">Office Name</th>
+                <th scope="col">social media</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor ="let candidate of contest.candidates">
+                <td>
+                    <img height="42" width="42" class="img-profile" src="{{ candidate.photoUrl }}" alt="../../../../images/user2.png" />
+                </td>
+                <td>
+                    name: {{ candidate.name }} <br />
+                    <p>Phone:{{ candidate.phone }}</p>
+                    <p>Party:</p> {{ candidate.party }} <br />
+                    <a class="btn btn-primary mt-2" href="{{candidate.candidateUrl }}">Visit</a>
+                </td>
+                <td>{{contest.office}}</td>
+                <td>
+                    <div *ngFor="let channel of candidate.channels">
+                        <div *ngIf="youtube(channel.type)">
+                            <a href="https://www.youtube.com/{{channel.id}}">
+                                <i class="fa fa-youtube-square fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div *ngIf="facebook(channel.type)">
+                            <a href="https://www.facebook.com/{{channel.id}}">
+                                <i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div *ngIf="twitter(channel.type)">
+                            <a href="https://twitter.com/{{channel.id}}">
+                                <i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div *ngIf="google(channel.type)">
+                            <a href="https://plus.google.com/{{channel.id}}">
+                                <i class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

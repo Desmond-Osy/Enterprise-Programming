@@ -1,0 +1,48 @@
+<h1>Search</h1>
+<!--<form #searchForm="ngForm" (ngSubmit)="search()">
+    <input type="text" [(ngModel)]="searchString" name="searchStringInput" #searchStringInput="ngModel" required />
+    <div class="alert alert-danger" *ngIf="!searchStringInput.valid">
+        You must specify a search string
+    </div>
+    <button type="submit" [disabled]="!searchForm.valid" [pokAudit]="'Searched for '+searchString">Search</button>
+</form>-->
+<div class="form-group">
+    <select class="form-control selectpicker " [ngModel]="selectedDevice" (ngModelChange)="onChange($event)" name="sel2">
+        <option [value]="i" *ngFor="let i of devices">{{i}}</option>
+    </select>
+    <div class="col-sm">
+        <div *ngIf="isUpcomingElection()">
+            <label for="address">Election Id</label>
+            <input 
+                   
+                   #addressTemp="ngModel"
+                   [(ngModel)]="electionId"
+                   type="text"
+                   class="form-control"
+                   id="searchId"
+                   aria-describedby="addressHelp"
+                   placeholder="electionId - optional">
+            <br/>
+        </div>
+        
+        <label for="address">Address</label>
+        <input required
+               #addressTemp="ngModel"
+               [(ngModel)]="address"
+               type="text"
+               class="form-control"
+               id="address"
+               aria-describedby="addressHelp"
+               placeholder="address">
+
+
+        <div class="alert alert-danger" *ngIf="!addressTemp.valid && addressTemp.touched">Address cannot be empty</div>
+
+        <button [disabled]="!addressTemp.valid"
+                (click)="searchAddress(address)"
+                class="btn btn-primary mt-4">
+            Search
+        </button>
+    </div>
+
+</div>

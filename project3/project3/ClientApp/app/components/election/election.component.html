@@ -1,0 +1,17 @@
+
+<h1>Election list</h1>
+
+<table class="table table-light">
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Election</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let election of elections">
+            <td>{{ election.electionDay}} </td>
+            <td>{{ election.name }}</td>
+        </tr>
+    </tbody>
+</table>

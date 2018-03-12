@@ -1,0 +1,59 @@
+<h1>Representatives list</h1>
+
+<table class="table table-light">
+    <thead>
+        <tr>
+            <th scope="col">photos</th>
+            <th scope="col">information</th>
+            <th scope="col">social media</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let official of officials">
+            <td><img height="42" width="42" class="img-profile" src="{{ official.photoUrl }}" /> </td>
+            <td>
+                name: {{ official.name }} <br />
+                office: {{ official.office }}
+                <p>Phone:</p>
+                <div *ngFor="let phone of official.phones">
+                    {{ phone }}
+                </div>
+
+                <p>Party:</p> {{ official.party }} <br />
+                <p>Address:</p>
+                <div *ngFor="let address of official.address">
+                    {{ address.line1 }} <br />
+                    <div *ngIf="address.line2">{{ address.line2 }} <br /></div>
+                    {{ address.city }}, {{ address.state }} {{ address.zip }}
+                </div>
+                <div *ngFor="let url of official.urls">
+                    <a class="btn btn-primary mt-2" href="{{ url }}">Visit</a>
+                </div>
+            </td>
+            <td>
+                <div *ngFor="let channel of official.channels">
+                    <div *ngIf="youtube(channel.type)">     
+                        <a href="https://www.youtube.com/{{channel.id}}">
+                            <i class="fa fa-youtube-square fa-2x" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div *ngIf="facebook(channel.type)">
+                        <a href="https://www.facebook.com/{{channel.id}}">
+                            <i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div *ngIf="twitter(channel.type)">
+                        <a href="https://twitter.com/{{channel.id}}">
+                            <i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div *ngIf="google(channel.type)">
+                        <a href="https://plus.google.com/{{channel.id}}">
+                            <i class="fa fa-google-plus-square fa-2x" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

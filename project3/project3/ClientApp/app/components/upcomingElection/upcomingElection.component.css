@@ -1,0 +1,13 @@
+.crop {
+    width: 200px;
+    height: 150px;
+    overflow: hidden;
+}
+
+    .crop img {
+        display: block;
+        max-width: 200px;
+        max-height: 100px;
+        width: auto;
+        height: auto;
+    }
