@@ -16,6 +16,8 @@ export class HomeComponent {
     Todos: Todo[] = [];
     TodosBackup: Todo[] = [];
     displayCompleted: boolean = false;
+    tagString: string = "";
+    todo: Todo;
    
     public sortBy: string = "Date";   //default sort by date
 
@@ -25,6 +27,11 @@ export class HomeComponent {
     ngOnInit(): void {
         this.fetchTodos();
         this.sortTodos();
+
+        for (var i = 0; i < this.Todos.length; i++) {
+            this.Todos[i].date = moment.utc(this.TodosBackup[i].date, 'YYYY-MM-DDTkk:mm:ssTZD').local().format('LL');
+            
+        }
 
     }
 
@@ -125,7 +132,24 @@ export class HomeComponent {
      }
 
      filterTodo() {
-         
+         this.Todos = [];
+         console.log(this.TodosBackup[0]);
+         if (this.tagString == "") { this.Todos = this.TodosBackup; }
+         else {
+         let tagArray = this.tagString.split(', ');
+
+             for (let todo of this.TodosBackup) {
+                 this.apiService.getTodo(todo.id).subscribe(todo => {
+                     this.todo = todo;
+
+                     for (let tag of todo.tags) {
+                         if (tagArray.indexOf(tag.name) > -1) {
+                             this.Todos.push(todo);
+                         }
+                     }
+                 });
+             }
+         }
      }
 
 }

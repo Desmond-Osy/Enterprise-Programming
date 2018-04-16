@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0a6f5836419cd26cf1fb"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "42a04044514bb26eafb5"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -86608,11 +86608,15 @@ var HomeComponent = (function () {
         this.Todos = [];
         this.TodosBackup = [];
         this.displayCompleted = false;
+        this.tagString = "";
         this.sortBy = "Date"; //default sort by date
     }
     HomeComponent.prototype.ngOnInit = function () {
         this.fetchTodos();
         this.sortTodos();
+        for (var i = 0; i < this.Todos.length; i++) {
+            this.Todos[i].date = __WEBPACK_IMPORTED_MODULE_4_moment__["utc"](this.TodosBackup[i].date, 'YYYY-MM-DDTkk:mm:ssTZD').local().format('LL');
+        }
     };
     HomeComponent.prototype.fetchTodos = function () {
         var _this = this;
@@ -86702,6 +86706,27 @@ var HomeComponent = (function () {
         this.Todos = [];
     };
     HomeComponent.prototype.filterTodo = function () {
+        var _this = this;
+        this.Todos = [];
+        console.log(this.TodosBackup[0]);
+        if (this.tagString == "") {
+            this.Todos = this.TodosBackup;
+        }
+        else {
+            var tagArray_1 = this.tagString.split(', ');
+            for (var _i = 0, _a = this.TodosBackup; _i < _a.length; _i++) {
+                var todo = _a[_i];
+                this.apiService.getTodo(todo.id).subscribe(function (todo) {
+                    _this.todo = todo;
+                    for (var _i = 0, _a = todo.tags; _i < _a.length; _i++) {
+                        var tag = _a[_i];
+                        if (tagArray_1.indexOf(tag.name) > -1) {
+                            _this.Todos.push(todo);
+                        }
+                    }
+                });
+            }
+        }
     };
     HomeComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_12" /* Component */])({
@@ -86925,7 +86950,7 @@ var TodoUpdateComponent = (function () {
         var model = {
             id: this.todo.id,
             desc: this.todo.desc,
-            date: __WEBPACK_IMPORTED_MODULE_3_moment__["utc"](this.todo.date).format(),
+            date: __WEBPACK_IMPORTED_MODULE_3_moment__(this.todo.date).utc().format(),
             state: this.todo.state
         };
         this.apiService.updateTodo(model);
@@ -87346,7 +87371,7 @@ module.exports = "";
 /* 193 */
 /***/ (function(module, exports) {
 
-module.exports = "<br />\r\n<br />\r\n\r\nCreate New  <button class=\"btn btn-outline-success my-2 my-sm-0\" (click)=\"addTodo()\"><i class=\"fa fa-plus\"></i></button>\r\n<br />\r\n<br />\r\n\r\n<form class=\"form-inline\">\r\n    <div class=\"input-group\">\r\n        <input type=\"text\" class=\"form-control\" placeholder=\"Search for...\">\r\n        <span class=\"input-group-btn\">\r\n            <button class=\"btn btn-secondary\" type=\"button\" (click)=\"filterTodo()\"><i class=\"fa fa-search\"></i>Go!</button>\r\n        </span>\r\n    </div>\r\n\r\n    <div class=\"btn-group\" data-toggle=\"buttons\">\r\n\r\n        <label class=\"btn btn-pink btn-rounded active btn-md form-check-label\">\r\n            \r\n        </label>\r\n\r\n    </div>\r\n\r\n</form>\r\n<div class=\"form-group\">\r\n    <label class=\"col-xs-3 control-label\">Sort By</label>\r\n    <div class=\"col-xs-5 selectContainer\">\r\n        <select class=\"form-control\" name=\"sortBy\" [(ngModel)]=\"sortBy\" (ngModelChange)=\"sortTodos()\">\r\n            <option value=\"Date\">Date</option>\r\n            <option value=\"Description_Asc\">Description_Asc</option>\r\n            <option value=\"Description_Desc\">Description_Desc</option>\r\n        </select>\r\n    </div>\r\n</div>\r\n<div *ngIf=\"!isTodosEmpty()\">\r\n    <table class=\"table\" >\r\n        <thead>\r\n            <tr>\r\n                <th scope=\"col\">Description</th>\r\n                <th scope=\"col\">Due date</th>\r\n                <th scope=\"col\">Edit</th>\r\n                <th scope=\"col\">Delete</th>\r\n                <th scope=\"col\">Complete</th>\r\n            </tr>\r\n        </thead>\r\n        <tbody>\r\n            <tr *ngFor=\"let todo of Todos\"\r\n                [class.table-danger]=\"'danger' == checkTodoState(todo)\"\r\n                [class.table-warning]=\"'warning' == checkTodoState(todo)\"\r\n                [class.table-light]=\"'active' == checkTodoState(todo)\">\r\n\r\n                <th scope=\"row\">{{todo.desc}}</th>\r\n                <td>{{todo.date}}</td>\r\n                <td><button class=\"btn btn-primary\" (click)=\"editTodo(todo.id)\"><i class=\"fa fa-pencil-square-o\"></i>Edit</button></td>\r\n                <td><button class=\"btn btn-primary\" (click)=\"deleteTodo(todo.id)\"><i class=\"fa fa-trash\"></i>Delete</button></td>\r\n                <td><button class=\"btn btn-primary\" (click)=\"completeTodo(todo.id)\"><i class=\"fa fa-check\"></i>Complete</button></td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</div>\r\n<div *ngIf=\"isTodosEmpty()\">\r\n    <font color=\"red\" size=\"100\"> Please Add Todo </font>\r\n</div>\r\n";
+module.exports = "<br />\r\n<br />\r\n\r\nCreate New  <button class=\"btn btn-outline-success my-2 my-sm-0\" (click)=\"addTodo()\"><i class=\"fa fa-plus\"></i></button>\r\n<br />\r\n<br />\r\n\r\n<form class=\"form-inline\">\r\n    <div class=\"input-group\">\r\n        <input class=\"form-control\"placeholder=\"filter for...\" name=\"tagString\" type=\"text\" [(ngModel)]=\"tagString\">\r\n        <span class=\"input-group-btn\">\r\n            <button class=\"btn btn-secondary\" type=\"button\" (click)=\"filterTodo()\"><i class=\"fa fa-search\"></i>Go!</button>\r\n        </span>\r\n    </div>\r\n\r\n    <div class=\"btn-group\" data-toggle=\"buttons\">\r\n\r\n        <label class=\"btn btn-pink btn-rounded active btn-md form-check-label\">\r\n            \r\n        </label>\r\n\r\n    </div>\r\n\r\n</form>\r\n<div class=\"form-group\">\r\n    <label class=\"col-xs-3 control-label\">Sort By</label>\r\n    <div class=\"col-xs-5 selectContainer\">\r\n        <select class=\"form-control\" name=\"sortBy\" [(ngModel)]=\"sortBy\" (ngModelChange)=\"sortTodos()\">\r\n            <option value=\"Date\">Date</option>\r\n            <option value=\"Description_Asc\">Description_Asc</option>\r\n            <option value=\"Description_Desc\">Description_Desc</option>\r\n        </select>\r\n    </div>\r\n</div>\r\n<div *ngIf=\"!isTodosEmpty()\">\r\n    <table class=\"table\" >\r\n        <thead>\r\n            <tr>\r\n                <th scope=\"col\">Description</th>\r\n                <th scope=\"col\">Due date</th>\r\n                <th scope=\"col\">Edit</th>\r\n                <th scope=\"col\">Delete</th>\r\n                <th scope=\"col\">Complete</th>\r\n            </tr>\r\n        </thead>\r\n        <tbody>\r\n            <tr *ngFor=\"let todo of Todos\"\r\n                [class.table-danger]=\"'danger' == checkTodoState(todo)\"\r\n                [class.table-warning]=\"'warning' == checkTodoState(todo)\"\r\n                [class.table-light]=\"'active' == checkTodoState(todo)\">\r\n\r\n                <th scope=\"row\">{{todo.desc}}</th>\r\n                <td>{{todo.date}}</td>\r\n                <td><button class=\"btn btn-primary\" (click)=\"editTodo(todo.id)\"><i class=\"fa fa-pencil-square-o\"></i>Edit</button></td>\r\n                <td><button class=\"btn btn-primary\" (click)=\"deleteTodo(todo.id)\"><i class=\"fa fa-trash\"></i>Delete</button></td>\r\n                <td><button class=\"btn btn-primary\" (click)=\"completeTodo(todo.id)\"><i class=\"fa fa-check\"></i>Complete</button></td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</div>\r\n<div *ngIf=\"isTodosEmpty()\">\r\n    <font color=\"red\" size=\"100\"> Please Add Todo </font>\r\n</div>\r\n";
 
 /***/ }),
 /* 194 */
@@ -87364,7 +87389,7 @@ module.exports = "<form>\r\n    <div class=\"form-group row\">\r\n        <label
 /* 196 */
 /***/ (function(module, exports) {
 
-module.exports = "<form>\r\n    <div class=\"form-group row\">\r\n        <label for=\"example-text-input\" class=\"col-2 col-form-label\">Description</label>\r\n        <div class=\"col-10\">\r\n            <input class=\"form-control\" type=\"text\" name=\"desc\" id=\"example-text-input\" [(ngModel)]=\"desc\">\r\n        </div>\r\n    </div>\r\n    <div class=\"form-group row\">\r\n        <label for=\"example-datetime-local-input\" class=\"col-2 col-form-label\">Date and time</label>\r\n        <div class=\"col-10\">\r\n            <input class=\"form-control\" name=\"date\" type=\"datetime-local\" [(ngModel)]=\"date\">\r\n        </div>\r\n    </div>\r\n\r\n\r\n    <div class=\"form-group row\">\r\n        <label for=\"example-text-input\" class=\"col-2 col-form-label\">Tags</label>\r\n        <div class=\"col-10\">\r\n            <input class=\"form-control\" name=\"tagString\" type=\"text\" [(ngModel)]=\"tagString\">\r\n        </div>\r\n    </div>\r\n    <button class=\"btn btn-primary\" (click)=\"addTodo()\">Add</button>\r\n</form>";
+module.exports = "<form>\r\n    <div class=\"form-group row\">\r\n        <label for=\"example-text-input\" class=\"col-2 col-form-label\">Description</label>\r\n        <div class=\"col-10\">\r\n            <input class=\"form-control\" type=\"text\" name=\"desc\" id=\"example-text-input\" [(ngModel)]=\"desc\">\r\n        </div>\r\n    </div>\r\n    <div class=\"form-group row\">\r\n        <label for=\"example-datetime-local-input\" class=\"col-2 col-form-label\">Date and time</label>\r\n        <div class=\"col-10\">\r\n            <input class=\"form-control\" name=\"date\" type=\"datetime-local\" [(ngModel)]=\"date\">\r\n        </div>\r\n    </div>\r\n\r\n\r\n    <div class=\"form-group row\">\r\n        <label for=\"example-text-input\" class=\"col-2 col-form-label\">Tags \", \" separated </label>\r\n        <div class=\"col-10\">\r\n            <input class=\"form-control\" name=\"tagString\" type=\"text\" [(ngModel)]=\"tagString\">\r\n        </div>\r\n    </div>\r\n    <button class=\"btn btn-primary\" (click)=\"addTodo()\">Add</button>\r\n</form>";
 
 /***/ }),
 /* 197 */

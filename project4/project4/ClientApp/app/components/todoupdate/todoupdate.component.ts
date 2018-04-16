@@ -43,7 +43,7 @@ export class TodoUpdateComponent{
         var model = {
             id: this.todo.id,
             desc: this.todo.desc,
-            date: moment.utc(this.todo.date).format(),
+            date: moment(this.todo.date).utc().format(),
             state: this.todo.state
 
         }
