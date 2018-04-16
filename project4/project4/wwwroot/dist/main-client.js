@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2db428a8074e2a0e85bb"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0a6f5836419cd26cf1fb"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -31173,7 +31173,6 @@ var ApiService = (function () {
     };
     ApiService.prototype.deleteTodo = function (id) {
         return this.http.delete(this.hostName + "/" + id).subscribe(function (res) {
-            console.log(res);
             if (res.status == 201) {
                 console.log(res);
             }
@@ -31185,7 +31184,6 @@ var ApiService = (function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]({ 'Content-Type': 'application/json' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* RequestOptions */]({ headers: headers });
         return this.http.post(this.hostName, JSON.stringify(todoInfo), options).subscribe(function (res) {
-            console.log(res);
             if (res.status == 200) {
                 _this.router.navigate(['./home']);
             }
@@ -31197,7 +31195,6 @@ var ApiService = (function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]({ 'Content-Type': 'application/json' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* RequestOptions */]({ headers: headers });
         return this.http.put(this.hostName + '/' + todoInfo.id, todoInfo, options).subscribe(function (res) {
-            console.log(res);
             if (res.status == 201) {
                 _this.router.navigate(['./fake']);
             }
@@ -86628,10 +86625,6 @@ var HomeComponent = (function () {
                 }
             }
         });
-        //convert the dates to local using moment
-        this.Todos.forEach(function (value) {
-            value.date = __WEBPACK_IMPORTED_MODULE_4_moment__["utc"](value.date).local().format();
-        });
     };
     HomeComponent.prototype.addTodo = function () {
         this.router.navigate(['/todo']);
@@ -86693,7 +86686,7 @@ var HomeComponent = (function () {
     HomeComponent.prototype.checkTodoState = function (input) {
         var currentTime = __WEBPACK_IMPORTED_MODULE_4_moment__().utc().format();
         var dueTime = __WEBPACK_IMPORTED_MODULE_4_moment__(input.date).utc().format();
-        var warnTime = __WEBPACK_IMPORTED_MODULE_4_moment__(input.date).utc().subtract(2, 'days').format();
+        var warnTime = __WEBPACK_IMPORTED_MODULE_4_moment__(input.date).utc().subtract(this.Todos[0].warnDay, 'days').format();
         if (__WEBPACK_IMPORTED_MODULE_4_moment__(currentTime).isAfter(dueTime)) {
             return 'danger';
         }
@@ -86707,10 +86700,8 @@ var HomeComponent = (function () {
     HomeComponent.prototype.displayCompletedTodos = function () {
         var objCopy = JSON.parse(JSON.stringify(this.Todos));
         this.Todos = [];
-        console.log(objCopy);
     };
     HomeComponent.prototype.filterTodo = function () {
-        this.router.navigate(['/todo']);
     };
     HomeComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_12" /* Component */])({
@@ -86946,7 +86937,6 @@ var TodoUpdateComponent = (function () {
             _this.todo.date = __WEBPACK_IMPORTED_MODULE_3_moment__["utc"](_this.todo.date)
                 .local()
                 .format('YYYY-MM-DDTkk:mm:ss');
-            console.log(todo);
             for (var _i = 0, _a = todo.tags; _i < _a.length; _i++) {
                 var tag = _a[_i];
                 _this.arrayTag.push(tag.name);
@@ -87368,7 +87358,7 @@ module.exports = "<nav class=\"navbar navbar-expand-lg navbar-light bg-light\">\
 /* 195 */
 /***/ (function(module, exports) {
 
-module.exports = "<form>\r\n    <div class=\"form-group row\">\r\n        <label for=\"example-number-input\" class=\"col-2 col-form-label\">Warn Days</label>\r\n        <div class=\"col-10\">\r\n            <input class=\"form-control\" type=\"number\" [(ngModel)]=\"tagString\" name =\"days\">\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"form-group row\">\r\n        <label for=\"example-number-input\" class=\"col-2 col-form-label\">Warn Hours</label>\r\n        <div class=\"col-10\">\r\n            <input class=\"form-control\" type=\"number\" [(ngModel)]=\"hours\" name =\"hours\" >\r\n        </div>\r\n    </div>\r\n    <button class=\"btn btn-primary\" (click)=\"updateSettings()\">Set</button>\r\n</form>";
+module.exports = "<form>\r\n    <div class=\"form-group row\">\r\n        <label for=\"example-number-input\" class=\"col-2 col-form-label\">Warn Days</label>\r\n        <div class=\"col-10\">\r\n            <input class=\"form-control\" type=\"number\" [(ngModel)]=\"days\" name =\"days\">\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"form-group row\">\r\n        <label for=\"example-number-input\" class=\"col-2 col-form-label\">Warn Hours</label>\r\n        <div class=\"col-10\">\r\n            <input class=\"form-control\" type=\"number\" [(ngModel)]=\"hours\" name =\"hours\" >\r\n        </div>\r\n    </div>\r\n    <button class=\"btn btn-primary\" (click)=\"updateSettings()\">Set</button>\r\n</form>";
 
 /***/ }),
 /* 196 */

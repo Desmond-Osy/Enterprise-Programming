@@ -57,8 +57,6 @@ export class TodoUpdateComponent{
                 .local()
                 .format('YYYY-MM-DDTkk:mm:ss');
 
-            console.log(todo);
-
             for (let tag of todo.tags) {
                 this.arrayTag.push(tag.name);
             }

@@ -27,7 +27,6 @@ export class ApiService {
 
     public deleteTodo(id: number) {
         return this.http.delete(this.hostName + "/" + id).subscribe((res) => {
-            console.log(res);
             if (res.status == 201) {
                 console.log(res);
 
@@ -40,7 +39,6 @@ export class ApiService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         return this.http.post(this.hostName, JSON.stringify(todoInfo), options).subscribe((res) => {
-            console.log(res);
             if (res.status == 200) {
                 this.router.navigate(['./home']);
             }});
@@ -51,7 +49,6 @@ export class ApiService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         return this.http.put(this.hostName + '/' + todoInfo.id, todoInfo, options).subscribe((res) => {
-            console.log(res);
             if (res.status == 201) {
                 this.router.navigate(['./fake']);
             }

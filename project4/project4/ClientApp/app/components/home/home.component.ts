@@ -41,10 +41,7 @@ export class HomeComponent {
 
         })
 
-        //convert the dates to local using moment
-        this.Todos.forEach(function (value) {
-            value.date = moment.utc(value.date).local().format();
-        });
+
     }
     public addTodo() {
         
@@ -110,7 +107,7 @@ export class HomeComponent {
      checkTodoState(input: any): string {
              var currentTime = moment().utc().format();
              var dueTime = moment(input.date).utc().format();
-             var warnTime = moment(input.date).utc().subtract( 2, 'days').format();
+             var warnTime = moment(input.date).utc().subtract(this.Todos[0].warnDay, 'days').format();
 
              if (moment(currentTime).isAfter(dueTime)) {
                  return 'danger';
@@ -125,11 +122,10 @@ export class HomeComponent {
      displayCompletedTodos() {
          let objCopy = JSON.parse(JSON.stringify(this.Todos));
          this.Todos = [];
-         console.log(objCopy);
      }
 
      filterTodo() {
-         this.router.navigate(['/todo']);
+         
      }
 
 }
