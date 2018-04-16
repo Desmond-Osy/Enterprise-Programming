@@ -90,6 +90,9 @@ namespace AngularApplication.Controllers
             {
                 dbContext.Todo.SingleOrDefault(b => b.ID == id).Desc = value.Desc;
                 dbContext.Todo.SingleOrDefault(b => b.ID == id).Date = value.Date;
+                dbContext.Todo.SingleOrDefault(b => b.ID == id).WarnDay = value.WarnDay;
+                dbContext.Todo.SingleOrDefault(b => b.ID == id).WarnHour = value.WarnHour;
+                dbContext.Todo.SingleOrDefault(b => b.ID == id).State = value.State;
                 dbContext.Todo.SingleOrDefault(b => b.ID == id).Tags = value.Tags;
                 dbContext.SaveChanges();
                 return StatusCode(201);

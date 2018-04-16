@@ -40,18 +40,15 @@ export class TodoUpdateComponent{
 
     updateTodo() {
 
-        //let tagArray = this.tagString.split(', ');
-        //var model = {
-        //    desc: this.desc,
-        //    date: moment(this.date).utc().format(),
-        //    warnHours: this.warnHour,
-        //    warnDays: this.warnDay,
-        //    tags: tagArray
-        //
-     }
-       // this.apiService.updateTodo(model);
+        var model = {
+            id: this.todo.id,
+            desc: this.todo.desc,
+            date: moment.utc(this.todo.date).format(),
+            state: this.todo.state
 
-        //this.router.navigate(['/home']);
+        }
+        this.apiService.updateTodo(model);
+    }
 
     getTodo(id: any) {
         this.apiService.getTodo(id).subscribe(todo => {

@@ -8,11 +8,11 @@ import { Location } from '@angular/common';
 import * as moment from 'moment';
 
 @Component({
-    selector: 'home',
-    templateUrl: './home.component.html'
+    selector: 'completedtodos',
+    templateUrl: './completedtodos.component.html'
 })
 
-export class HomeComponent {
+export class CompletedTodos {
     Todos: Todo[] = [];
     TodosBackup: Todo[] = [];
     displayCompleted: boolean = false;
@@ -34,7 +34,7 @@ export class HomeComponent {
         this.apiService.getTodos().subscribe(Todos => {
             this.TodosBackup = Todos;
             for (let todo of this.TodosBackup) {
-                if (todo.state != "completed") {
+                if (todo.state == "completed") {
                     this.Todos.push(todo);
                 }
             }
@@ -90,16 +90,6 @@ export class HomeComponent {
          this.fetchTodos();
          this.router.navigate(['/fake']);
      }
-
-     completeTodo(id: number) {
-         for (let todo of this.Todos) {
-             if (todo.id == id) {
-                 todo.state = "completed";
-                 this.apiService.updateTodo(todo);
-             }
-         }
-         
-     }
     
      editTodo(id: number) {
 
@@ -120,16 +110,6 @@ export class HomeComponent {
                  return 'active';
              }
          
-     }
-
-     displayCompletedTodos() {
-         let objCopy = JSON.parse(JSON.stringify(this.Todos));
-         this.Todos = [];
-         console.log(objCopy);
-     }
-
-     filterTodo() {
-         this.router.navigate(['/todo']);
      }
 
 }

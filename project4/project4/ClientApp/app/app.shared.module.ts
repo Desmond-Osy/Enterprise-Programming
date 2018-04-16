@@ -16,6 +16,9 @@ import { SettingsComponent } from './components/settings/settings.component';
 
 import { TodoUpdateComponent } from './components/todoupdate/todoupdate.component';
 
+import { CompletedTodos } from './components/completedtodos/completedtodos.component';
+import { FakeComponent } from './components/fake/fake.component';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -23,6 +26,8 @@ import { TodoUpdateComponent } from './components/todoupdate/todoupdate.componen
         HomeComponent,
         TodoComponent,
         TodoUpdateComponent,
+        CompletedTodos,
+        FakeComponent,
         SettingsComponent
     ],
     imports: [ 
@@ -34,6 +39,8 @@ import { TodoUpdateComponent } from './components/todoupdate/todoupdate.componen
             { path: 'home', component: HomeComponent },
             { path: 'settings', component: SettingsComponent },
             { path: 'todo', component: TodoComponent },
+            { path: 'completedtodos', component: CompletedTodos },
+            { path: 'fake', component: FakeComponent },
             { path: 'todoupdate/:id', component: TodoUpdateComponent },
             { path: '**', redirectTo: 'home' }
    

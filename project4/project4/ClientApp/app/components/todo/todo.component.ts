@@ -17,6 +17,7 @@ export class TodoComponent{
     tagString: string = "";
     warnHours: number = 0;
     warnDays: number = 2;
+    state: string = "active";
 
     constructor(private router: Router, private apiService: ApiService) {
     }
@@ -33,6 +34,7 @@ export class TodoComponent{
             date: moment(this.date).utc().format(),
             warnHours: this.warnHours,
             warnDays: this.warnDays,
+            state: this.state,
             tags: tagArray
         }
 

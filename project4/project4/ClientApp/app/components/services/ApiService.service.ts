@@ -50,10 +50,10 @@ export class ApiService {
         console.log(todoInfo);
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        return this.http.put(this.hostName, JSON.stringify(todoInfo), options).subscribe((res) => {
+        return this.http.put(this.hostName + '/' + todoInfo.id, todoInfo, options).subscribe((res) => {
             console.log(res);
-            if (res.status == 200) {
-                this.router.navigate(['./home']);
+            if (res.status == 201) {
+                this.router.navigate(['./fake']);
             }
         });
     }
