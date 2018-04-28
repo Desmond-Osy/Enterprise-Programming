@@ -49,6 +49,7 @@ namespace AngularApplication.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
+           
             var userId = HttpContext.User.Claims.First().Value;
             var todo = this.dbContext.Todo.SingleOrDefault(t => t.ID == id && t.OwnerId == userId);
             IEnumerable<Tag> tags = new List<Tag>();
@@ -96,9 +97,10 @@ namespace AngularApplication.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody]Todo value)
         {
-            var result = dbContext.Todo.SingleOrDefault(b => b.ID == id);
+            var userId = HttpContext.User.Claims.First().Value;
+            var result = this.dbContext.Todo.SingleOrDefault(t => t.ID == id && t.OwnerId == userId);
 
-            if(result != null)
+            if (result != null)
             {
                 dbContext.Todo.SingleOrDefault(b => b.ID == id).Desc = value.Desc;
                 dbContext.Todo.SingleOrDefault(b => b.ID == id).Date = value.Date;
@@ -119,7 +121,8 @@ namespace AngularApplication.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var todo = dbContext.Todo.SingleOrDefault(t => t.ID == id);
+            var userId = HttpContext.User.Claims.First().Value;
+            var todo = this.dbContext.Todo.SingleOrDefault(t => t.ID == id && t.OwnerId == userId);
             if (todo == null)
             {
                 return StatusCode(404);

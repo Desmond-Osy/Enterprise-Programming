@@ -95,6 +95,8 @@ namespace AngularApplication
                 options.SlidingExpiration = true;
             });
 
+          
+
             services.AddMvc();
         }
 

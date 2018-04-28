@@ -1,20 +1,23 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#"><i class="fa fa-home fa-fw"></i>Todo It!</a>
+    <a class="navbar-brand" [routerLink]="['/home']"><i class="fa fa-home fa-fw"></i>Todo It!</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item" [routerLinkActive]="['link-active']">
+            <li class="nav-item" [routerLinkActive]="['link-active']" >
+                <a class="nav-link" [routerLink]="['/login']">Login</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']" >
                 <a class="nav-link" [routerLink]="['/register']">Register</a>
             </li>
-            <li class="nav-item" [routerLinkActive]="['link-active']">
+            <li class="nav-item" [routerLinkActive]="['link-active']" >
                 <a class="nav-link" [routerLink]="['/home']"><i class="fa fa-home fa-fw"></i>Home</a>
             </li>
-            <li class="nav-item" [routerLinkActive]="['link-active']">
+            <li class="nav-item" [routerLinkActive]="['link-active']" >
                 <a class="nav-link" [routerLink]="['/completedtodos']"><i class="fa fa-filter fa-fw"></i>Completed</a>
             </li>
-            <li class="nav-item" [routerLinkActive]="['link-active']">
+            <li class="nav-item" [routerLinkActive]="['link-active']" >
                 <a class="nav-link" [routerLink]="['/settings']"><i class="fa fa-cog fa-fw"></i>Settings</a>
             </li>
         </ul>

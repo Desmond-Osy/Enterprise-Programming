@@ -26,7 +26,8 @@ Create New  <button class="btn btn-outline-success my-2 my-sm-0" (click)="addTod
     <label class="col-xs-3 control-label">Sort By</label>
     <div class="col-xs-5 selectContainer">
         <select class="form-control" name="sortBy" [(ngModel)]="sortBy" (ngModelChange)="sortTodos()">
-            <option value="Date">Date</option>
+            <option value="Date_Asc">Date_Asc</option>
+            <option value="Date_Desc">Date_Desc</option>
             <option value="Description_Asc">Description_Asc</option>
             <option value="Description_Desc">Description_Desc</option>
         </select>

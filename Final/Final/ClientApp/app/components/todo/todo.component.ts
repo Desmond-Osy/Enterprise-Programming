@@ -37,8 +37,8 @@ export class TodoComponent{
             state: this.state,
             tags: tagArray
         }
-
-        this.apiService.addTodo(model);
+            this.apiService.addTodo(model);
+        
 
         //this.router.navigate(['/home']);
     }

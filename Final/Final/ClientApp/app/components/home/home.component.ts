@@ -22,10 +22,10 @@ export class HomeComponent {
     public sortBy: string = "Date";   //default sort by date
 
     constructor(private router: Router, private apiService: ApiService, private location: Location) {
+        this.fetchTodos();
     }
 
     ngOnInit(): void {
-        this.fetchTodos();
         this.sortTodos();
 
         for (var i = 0; i < this.Todos.length; i++) {
@@ -71,11 +71,18 @@ export class HomeComponent {
                 return 0;
             });
         }
-        else if (this.sortBy == "Date") {
+        else if (this.sortBy == "Date_Asc") {
             this.Todos.sort((a, b): number => {
                 let dateA = new Date(a.date).getTime();
                 let dateB = new Date(b.date).getTime();
                 return dateA - dateB;
+            });
+        }
+        else if (this.sortBy == "Date_Desc") {
+            this.Todos.sort((a, b): number => {
+                let dateA = new Date(a.date).getTime();
+                let dateB = new Date(b.date).getTime();
+                return dateB - dateA;
             });
         }
     }
@@ -139,6 +146,7 @@ export class HomeComponent {
      filterTodo() {
          this.Todos = [];
          console.log(this.TodosBackup[0]);
+         console.log("here");
          if (this.tagString == "") { this.Todos = this.TodosBackup; }
          else {
          let tagArray = this.tagString.split(', ');

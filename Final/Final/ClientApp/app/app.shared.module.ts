@@ -5,7 +5,6 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 
-
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
@@ -21,6 +20,7 @@ import { CompletedTodos } from './components/completedtodos/completedtodos.compo
 import { FakeComponent } from './components/fake/fake.component';
 import { RegisterComponent } from './components/register/register.component'
 import { LoginComponent } from './components/login/login.component';
+
 
 @NgModule({
     declarations: [
@@ -46,11 +46,12 @@ import { LoginComponent } from './components/login/login.component';
             { path: 'settings', component: SettingsComponent },
             { path: 'todo', component: TodoComponent },
             { path: 'completedtodos', component: CompletedTodos },
-            { path: 'register', component: RegisterComponent },
+            { path: 'register', component: RegisterComponent},
             { path: 'login', component: LoginComponent },
             { path: 'fake', component: FakeComponent },
             { path: 'todoupdate/:id', component: TodoUpdateComponent },
             { path: '**', redirectTo: 'register' }
+            
    
         ])
     ],

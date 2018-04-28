@@ -23,6 +23,8 @@ export class SettingsComponent {
 
     ngOnInit(): void {
         this.fetchTodos();
+        this.days = this.Todos[0].warnDay;
+        this.hours = this.Todos[0].warnHour;
     }
 
 
