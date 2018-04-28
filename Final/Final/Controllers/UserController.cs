@@ -25,6 +25,8 @@ namespace AngularApplication.Controllers
             this.userManager = userManager;
         }
 
+
+
         [HttpPost]
         public async Task<IActionResult> Login([FromBody]LoginViewModel loginViewModel)
         {

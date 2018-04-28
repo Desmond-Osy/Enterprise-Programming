@@ -46,7 +46,12 @@ export class HomeComponent {
                 }
             }
 
-        })
+        },
+            err => {
+                console.log(err);
+                this.router.navigate(['/login']);
+            }
+        )
 
 
     }
@@ -152,7 +157,8 @@ export class HomeComponent {
          let tagArray = this.tagString.split(', ');
 
              for (let todo of this.TodosBackup) {
-                 this.apiService.getTodo(todo.id).subscribe(todo => {
+                 this.apiService.getTodo(todo.id).subscribe(
+                     todo => {
                      this.todo = todo;
 
                      for (let tag of todo.tags) {
@@ -160,7 +166,12 @@ export class HomeComponent {
                              this.Todos.push(todo);
                          }
                      }
-                 });
+                     },
+                     err => {
+                         console.log(err);
+                         this.router.navigate(['/login']);
+                     }
+                 );
              }
          }
      }

@@ -39,7 +39,11 @@ export class CompletedTodos {
                 }
             }
 
-        })
+        },
+            err => {
+                console.log(err);
+                this.router.navigate(['/login']);
+            })
 
         //convert the dates to local using moment
         this.Todos.forEach(function (value) {

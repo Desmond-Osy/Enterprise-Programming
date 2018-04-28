@@ -20,6 +20,8 @@ import { CompletedTodos } from './components/completedtodos/completedtodos.compo
 import { FakeComponent } from './components/fake/fake.component';
 import { RegisterComponent } from './components/register/register.component'
 import { LoginComponent } from './components/login/login.component';
+import { AuthRouteService } from './components/services/Auth.service';
+import { LoggedInAuthGuard } from './components/services/loggedInAuthGuard.service';
 
 
 @NgModule({
@@ -43,7 +45,7 @@ import { LoginComponent } from './components/login/login.component';
         RouterModule.forRoot([
             { path: '', redirectTo: 'login', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
-            { path: 'settings', component: SettingsComponent },
+            { path: 'settings', component: SettingsComponent},
             { path: 'todo', component: TodoComponent },
             { path: 'completedtodos', component: CompletedTodos },
             { path: 'register', component: RegisterComponent},
@@ -57,6 +59,8 @@ import { LoginComponent } from './components/login/login.component';
     ],
     providers: [
         AuthService,
+        LoggedInAuthGuard,
+        AuthRouteService,
         ApiService
     ]
 })
